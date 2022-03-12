@@ -160,71 +160,43 @@ const AppFrame = styled.div`
 
 function Product(props) {
 
-    const [products, err] = useApi("products");
     const [like, setLike] = useState(0);
-
+    const [product, setProduct] = useState(props.product);
     var addLikes = () => {
         setLike(like + 1)
     }
     useEffect(() => {
     }, []);
 
-    /*  const detail = () => {
-          return <Redirect to="/ProductDetail"/>
-      }*/
     if (like < 5) {
         return (
-            <AppFrame>
-                <Home/>
-                <ProductsWrapper>
-
-                    {products &&
-                    products.map(product => (
-                        <ProductFrame>
-                            <ProductImageWrapper>
-                                <ProductImage src={product.image}/>
-                            </ProductImageWrapper>
-                            <ProductInfoWrapper>
-
-                                {product.title}<br/>
-                                <li><Link to={'/detailProduct/'+ product._id}> detailProduct</Link></li>
-                                {product.price}<br/>
-                                Like : {like}
-                            </ProductInfoWrapper>
-                            <Button onClick={addLikes}>Like</Button>
-                        </ProductFrame>
-
-                    ))
-                    }
-                </ProductsWrapper>
-
-            </AppFrame>
+            <ProductFrame>
+                <ProductImageWrapper>
+                    <ProductImage src={product.image}/>
+                </ProductImageWrapper>
+                <ProductInfoWrapper>
+                    {product.title}<br/>
+                    <li key={product._id}><Link to={'/detailProduct/' + product._id}> detailProduct</Link></li>
+                    {product.price}<br/>
+                    Like : {like}
+                </ProductInfoWrapper>
+                <Button onClick={addLikes}>Like</Button>
+            </ProductFrame>
         )
     } else {
         return (
-
-            <AppFrame>
-                <Home/>
-                <ProductsWrapper>
-                    {products &&
-                    products.map(product => (
-                        <ProductFrameBest>
-                            <ProductImageWrapperBest>
-                                <ProductImage src={product.image}/>
-                            </ProductImageWrapperBest>
-                            <ProductInfoWrapperBest>
-                                {product.title}<br/>
-                                <li><Link to={'/detailProduct/'+ product._id}> detailProduct</Link></li>
-                                {product.price}<br/>
-                                Like : {like}
-                            </ProductInfoWrapperBest>
-                            <Button onClick={addLikes}>Like</Button>
-                        </ProductFrameBest>
-                    ))
-                    }
-                </ProductsWrapper>
-            </AppFrame>
-
+            <ProductFrameBest>
+                <ProductImageWrapperBest>
+                    <ProductImage src={product.image}/>
+                </ProductImageWrapperBest>
+                <ProductInfoWrapperBest>
+                    {product.title}<br/>
+                    <li><Link to={'/detailProduct/' + product._id}> detailProduct</Link></li>
+                    {product.price}<br/>
+                    Like : {like}
+                </ProductInfoWrapperBest>
+                <Button onClick={addLikes}>Like</Button>
+            </ProductFrameBest>
 
         )
     }

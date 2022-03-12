@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Home from "./Home";
 import useApi from "../hooks/useApi";
 import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const Button = styled.button`
   /* Adapt the colors based on primary prop */
@@ -93,25 +95,37 @@ const AppFrame = styled.div`
 
 function DetailProduct(props) {
     const url = "https://previews.123rf.com/images/eugene78/eugene781702/eugene78170200180/71940602-blank-plastic-water-bottle.jpg";
-    let { id } = useParams();
-    const [product, err] = useApi("product/"+id);
-            console.log(product)
+    let {id} = useParams();
+    const [product, SetProduct] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const {data: response} = await axios.get(`${process.env.REACT_APP_API_URL}/product/` + id);
+                SetProduct(response);
+            } catch (error) {
+                console.error(error)
+            }
+        };
+        fetchData().then(product);
+
+    }, []);
+
+    console.log(product)
     return (
         <AppFrame>
             <Home/>
             <Container>
                 <ContentBox>
                     <Content1>
-
                         <ProductImage src={url}/>
-
                     </Content1>
                     <Content2>
                         <H1>
-                            water
+                            {product.title}
                         </H1>
                         <H3>
-                            "waterwaterwaterwaterwaterwaterwaterwaterwater"
+                            {product.description}
                         </H3>
                     </Content2>
 

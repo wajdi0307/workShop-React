@@ -6,6 +6,7 @@ import useApi from "./hooks/useApi";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ProductDetail from "./Components/ProductDetail";
 import NotFound from "./Components/NotFound";
+import Products from "./Components/Products";
 
 
 const AppFrame = styled.div`
@@ -20,8 +21,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/detailProduct/:id" element={<ProductDetail/>}/>
-                <Route path="/product" element={<Product/>}/>
+                <Route path="/detailProduct/:id"  element={<ProductDetail/>}/>
+                <Route path="/product" element={<Products/>}/>
                 <Route exact path="/" element={<Home/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
